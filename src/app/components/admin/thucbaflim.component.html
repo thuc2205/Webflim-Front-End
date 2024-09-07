@@ -1,0 +1,83 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <ul
+    class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion"
+    id="accordionSidebar"
+  >
+    <!-- Sidebar - Brand -->
+    <a
+      class="sidebar-brand d-flex align-items-center justify-content-center"
+      href="index.html"
+    >
+      <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-laugh-wink"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">ADMIN PHIM<sup>2004</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0" />
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="index.html">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span class="nav-link">
+          <i class="fas fa-user"></i>
+          <span *ngIf="username; else guest">{{ username }}</span>
+          <ng-template #guest><span>Guest</span></ng-template>
+        </span>
+      </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider" />
+
+    <!-- Display logged in username -->
+    <li class="nav-item"></li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider" />
+
+    <!-- Heading -->
+    <div class="sidebar-heading">Web Flim</div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        href="/homeAdmin"
+        data-toggle="collapse"
+        data-target="#collapseTwo"
+        aria-expanded="true"
+        aria-controls="collapseTwo"
+      >
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Genre</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        href="/movieAdmin"
+        data-toggle="collapse"
+        data-target="#collapseTwo"
+        aria-expanded="true"
+        aria-controls="collapseTwo"
+      >
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Movie</span>
+      </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider" />
+
+    <!-- Heading -->
+    <div class="sidebar-heading">Addons</div>
+
+    <!-- Sidebar Message -->
+  </ul>
+</div>
+<!-- End of Page Wrapper -->

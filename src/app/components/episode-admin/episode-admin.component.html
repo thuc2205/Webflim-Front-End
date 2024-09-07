@@ -1,0 +1,207 @@
+<div class="row">
+  <div class="col-2">
+    <app-thucbaflim></app-thucbaflim>
+  </div>
+
+  <div class="col-10">
+    <h1>{{ title }}</h1>
+    <!-- episode-admin.component.html -->
+    <div class="container mt-4">
+      <h1>Add New Episode</h1>
+      <form
+        (ngSubmit)="onSubmit()"
+        #episodeForm="ngForm"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            [(ngModel)]="episode.title"
+            name="title"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            class="form-control"
+            [(ngModel)]="episode.description"
+            name="description"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="episodeNumber">Episode Number</label>
+          <input
+            type="text"
+            id="episodeNumber"
+            class="form-control"
+            [(ngModel)]="episode.episodeNumber"
+            name="episodeNumber"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duration (minutes)</label>
+          <input
+            type="number"
+            id="duration"
+            class="form-control"
+            [(ngModel)]="episode.duration"
+            name="duration"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="releaseDate">Release Date</label>
+          <input
+            type="date"
+            id="releaseDate"
+            class="form-control"
+            [(ngModel)]="episode.releaseDate"
+            name="releaseDate"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="videoFile">Video File</label>
+          <input
+            type="file"
+            id="videoFile"
+            class="form-control"
+            (change)="onVideoFileSelected($event)"
+            accept="video/*"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Episode</button>
+      </form>
+    </div>
+
+    <!-- Existing code for displaying episodes -->
+    <table class="table table-dark table-striped mt-4">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Episode Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Episode Number</th>
+          <th scope="col">Duration</th>
+          <th scope="col">Video URL</th>
+          <th scope="col">Movie Title</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let episode of episodes">
+          <th scope="row">{{ episode.id }}</th>
+          <td>{{ episode.title }}</td>
+          <td>{{ episode.description }}</td>
+          <td>{{ episode.episodeNumber }}</td>
+          <td>{{ episode.duration }}</td>
+          <td>
+            <a
+              [href]="
+                'http://localhost:8080/api/v1/episode/video/' + episode.videoUrl
+              "
+              target="_blank"
+              >Watch</a
+            >
+          </td>
+          <td>{{ episode.movie.title }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editEpisode(episode)">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Edit Episode Form -->
+    <div *ngIf="episodeToEdit">
+      <h2>Edit Episode</h2>
+      <form (ngSubmit)="updateEpisode()" #editForm="ngForm">
+        <div class="form-group">
+          <label for="editTitle">Title</label>
+          <input
+            type="text"
+            id="editTitle"
+            class="form-control"
+            [(ngModel)]="episodeToEdit.title"
+            name="title"
+            #title="ngModel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="editDescription">Description</label>
+          <textarea
+            id="editDescription"
+            class="form-control"
+            [(ngModel)]="episodeToEdit.description"
+            name="description"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editEpisodeNumber">Episode Number</label>
+          <input
+            type="text"
+            id="editEpisodeNumber"
+            class="form-control"
+            [(ngModel)]="episodeToEdit.episodeNumber"
+            name="episodeNumber"
+            #episodeNumber="ngModel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="editDuration">Duration (in minutes)</label>
+          <input
+            type="number"
+            id="editDuration"
+            class="form-control"
+            [(ngModel)]="episodeToEdit.duration"
+            name="duration"
+            #duration="ngModel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="videoFile">Video File</label>
+          <input
+            type="file"
+            id="videoFile"
+            class="form-control"
+            (change)="onVideoFileSelected($event)"
+          />
+        </div>
+        <div class="form-group">
+          <label for="editMovieTitle">Movie Title</label>
+          <input
+            type="text"
+            id="editMovieTitle"
+            class="form-control"
+            [(ngModel)]="episodeToEdit.movie.title"
+            name="movieTitle"
+            #movieTitle="ngModel"
+            disabled
+          />
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Episode</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Cancel
+        </button>
+      </form>
+    </div>
+
+    <!-- Existing code for adding a new episode -->
+  </div>
+</div>

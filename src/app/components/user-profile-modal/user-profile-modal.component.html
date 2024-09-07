@@ -1,0 +1,9 @@
+<div class="modal-backdrop" *ngIf="isVisible" (click)="close()"></div>
+<div class="modal-container" *ngIf="isVisible">
+  <div class="modal-content">
+    <button class="close-button" (click)="close()">×</button>
+    <h2>Thông tin cá nhân</h2>
+    <p>Username: {{ username }}</p>
+    <!-- Thêm các thông tin khác về người dùng nếu cần -->
+  </div>
+</div>

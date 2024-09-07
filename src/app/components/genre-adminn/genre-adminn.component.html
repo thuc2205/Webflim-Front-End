@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-2">
+    <app-thucbaflim></app-thucbaflim>
+  </div>
+  <div class="col-10">
+    <h1>DANH MỤC PHIM</h1>
+    <div class="form-group">
+      <label for="genreName">Thêm Danh Mục Phim</label>
+      <input
+        id="genreName"
+        type="text"
+        class="form-control"
+        [(ngModel)]="newGenre.name"
+        placeholder="Nhập tên danh mục phim"
+      />
+      <button class="btn btn-primary mt-2" (click)="addGenre()">Thêm</button>
+    </div>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Tên</th>
+          <th scope="col">Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let genre of genreResponse.genres">
+          <td>
+            <ng-container *ngIf="genreToEdit !== genre.name; else editMode">
+              {{ genre.name }}
+            </ng-container>
+            <ng-template #editMode>
+              <input
+                type="text"
+                [(ngModel)]="editGenreName"
+                placeholder="Nhập tên danh mục"
+                class="form-control"
+              />
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="genreToEdit !== genre.name; else editControls">
+              <button class="btn btn-danger" (click)="deleteGenre(genre.name)">
+                Xóa
+              </button>
+              <button
+                class="btn btn-primary"
+                (click)="startEditing(genre.name)"
+              >
+                Chỉnh sửa
+              </button>
+            </ng-container>
+            <ng-template #editControls>
+              <button class="btn btn-success" (click)="updateGenre(genre.name)">
+                Cập nhật
+              </button>
+              <button class="btn btn-secondary" (click)="cancelEditing()">
+                Hủy
+              </button>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li
+          class="page-item"
+          [class.disabled]="genreResponse.currentPage === 0"
+        >
+          <a
+            class="page-link"
+            (click)="goToPage(genreResponse.currentPage - 1)"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" *ngFor="let page of pagesArray; let i = index">
+          <a
+            class="page-link"
+            (click)="goToPage(i)"
+            [class.active]="i === genreResponse.currentPage"
+          >
+            {{ i + 1 }}
+          </a>
+        </li>
+        <li
+          class="page-item"
+          [class.disabled]="
+            genreResponse.currentPage === genreResponse.totalPages - 1
+          "
+        >
+          <a
+            class="page-link"
+            (click)="goToPage(genreResponse.currentPage + 1)"
+            aria-label="Next"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
